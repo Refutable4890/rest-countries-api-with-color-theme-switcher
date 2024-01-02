@@ -3,15 +3,15 @@
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { useEffect, useRef, useState } from "react"
 import axios from "axios"
-import CountryCard from "./CountryCard"
-import { getRestCountriesEndPoint } from "./apiHelper"
+import CountryCard from "@/app/ui/CountryCard"
+import { getRestCountriesEndPoint } from "@/app/lib/apiHelper"
 import { Menu } from "@headlessui/react"
 import { CheckIcon, ChevronDownIcon } from "@heroicons/react/20/solid"
-import Search from "./ui/search"
+import Search from "@/app/ui/search"
 import {
   QUERY_PARAMETER_KEY_FOR_REGION,
   QUERY_PARAMETER_KEY_FOR_SEARCH,
-} from "./lib/config"
+} from "@/app/lib/config"
 
 export interface Country {
   name: {

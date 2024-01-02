@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faMagnifyingGlass, faSpinner } from "@fortawesome/free-solid-svg-icons"
 import { useSearchParams, usePathname, useRouter } from "next/navigation"
 import { useDebouncedCallback } from "use-debounce"
-import { QUERY_PARAMETER_KEY_FOR_SEARCH } from "../lib/config"
+import { QUERY_PARAMETER_KEY_FOR_SEARCH } from "@/app/lib/config"
 
 export default function Search({
   placeholder,

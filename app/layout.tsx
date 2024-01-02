@@ -1,9 +1,9 @@
-import "./globals.css"
+import "@/app/ui/globals.css"
 import type { Metadata } from "next"
 import { Nunito_Sans } from "next/font/google"
-import ThemeContextProvider from "./contexts/ThemeContextProvider"
-import Header from "./Header"
-import BodyWithThemeClassName from "./BodyWithThemeClassName"
+import ThemeContextProvider from "@/app/contexts/ThemeContextProvider"
+import Header from "@/app/ui/Header"
+import BodyWithThemeClassName from "@/app/ui/BodyWithThemeClassName"
 
 export const metadata: Metadata = {
   title: "Frontend Mentor - REST Countries API with color theme switcher",

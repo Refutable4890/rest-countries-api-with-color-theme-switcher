@@ -1,7 +1,7 @@
 "use client"
 
 import { useContext } from "react"
-import { ThemeContext } from "./contexts/ThemeContextProvider"
+import { ThemeContext } from "@/app/contexts/ThemeContextProvider"
 
 export default function BodyWithThemeClassName({
   children,
