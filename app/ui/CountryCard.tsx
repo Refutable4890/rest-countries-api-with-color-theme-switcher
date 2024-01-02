@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { Country } from "@/app/page"
+import { Country } from "@/app/lib/definitions"
 import Image from "next/image"
 
 interface Props {
