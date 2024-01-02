@@ -5,13 +5,13 @@ import { useEffect, useRef, useState } from "react"
 import axios from "axios"
 import CountryCard from "./CountryCard"
 import { getRestCountriesEndPoint } from "./apiHelper"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faMagnifyingGlass, faSpinner } from "@fortawesome/free-solid-svg-icons"
 import { Menu } from "@headlessui/react"
 import { CheckIcon, ChevronDownIcon } from "@heroicons/react/20/solid"
-
-const QUERY_PARAMETER_KEY_FOR_SEARCH = "q"
-const QUERY_PARAMETER_KEY_FOR_REGION = "region"
+import Search from "./ui/search"
+import {
+  QUERY_PARAMETER_KEY_FOR_REGION,
+  QUERY_PARAMETER_KEY_FOR_SEARCH,
+} from "./lib/config"
 
 export interface Country {
   name: {
@@ -57,9 +57,6 @@ export default function Home() {
   const pathname = usePathname()
   const searchParams = useSearchParams()
 
-  const [userQueryInput, setUserQueryInput] = useState<string>(() => {
-    return searchParams.get(QUERY_PARAMETER_KEY_FOR_SEARCH) || ""
-  })
   const [regionFilterValue, setRegionFilterValue] = useState<RegionFilterType>(
     () => {
       const regionFilterValueFromSearchParams = searchParams.get(
@@ -84,42 +81,15 @@ export default function Home() {
     Country[]
   >([])
 
-  const searchTimeout = useRef<NodeJS.Timeout | undefined>()
   const searchRequestAbortController = useRef<AbortController | undefined>()
 
-  // Update URL with user query.
-  // And search.
+  const query = searchParams.get(QUERY_PARAMETER_KEY_FOR_SEARCH) || ""
+
+  // Search.
 
   useEffect(() => {
-    const keyWordTrimmed = userQueryInput?.trim()
-
-    // ⬇️ Update URL with user query
-
-    const currentURLSearchParams = new URLSearchParams(
-      Array.from(searchParams.entries()),
-    ) // -> has to use this form
-
-    if (!keyWordTrimmed) {
-      currentURLSearchParams.delete(QUERY_PARAMETER_KEY_FOR_SEARCH)
-    } else {
-      currentURLSearchParams.set(QUERY_PARAMETER_KEY_FOR_SEARCH, keyWordTrimmed)
-    }
-
-    const urlSearchParams = currentURLSearchParams.toString()
-    const queryString = urlSearchParams ? `?${urlSearchParams}` : ""
-    router.replace(`${pathname}${queryString}`)
-
-    // ⬆️ Update URL with user query
-
-    // ⬇️ Search
-
-    clearTimeout(searchTimeout.current)
-    searchTimeout.current = setTimeout(() => {
-      searchCountry(userQueryInput)
-    }, 1000)
-
-    // ⬆️ Search
-  }, [userQueryInput])
+    searchCountry(query)
+  }, [query])
 
   // Update URL with region query parameter
 
@@ -197,30 +167,10 @@ export default function Home() {
     <div className="px-4 md:px-[80px]">
       <section className="mx-auto max-w-[1280px] py-11 text-sm">
         <header className="flex flex-col justify-between gap-12 md:h-[56px] md:flex-row md:gap-x-4">
-          {/* Search input box */}
-          <div className="flex shrink rounded bg-white px-6 text-Dark-Gray-(Light-Mode-Input) shadow dark:bg-Dark-Blue-(Dark-Mode-Elements) dark:text-white md:basis-[480px]">
-            {isSearching ? (
-              <FontAwesomeIcon
-                className="mr-3 self-center"
-                icon={faSpinner}
-                spin
-              />
-            ) : (
-              <FontAwesomeIcon
-                className="mr-3 self-center"
-                icon={faMagnifyingGlass}
-              />
-            )}
-
-            <input
-              className="h-[56px] grow bg-inherit md:h-[initial] md:w-[inherit]"
-              value={userQueryInput}
-              onChange={(event) => {
-                setUserQueryInput(event.target.value)
-              }}
-              placeholder="Search for a country…"
-            />
-          </div>
+          <Search
+            placeholder="Search for a country…"
+            isSearching={isSearching}
+          />
 
           <Menu
             as="div"
