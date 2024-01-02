@@ -76,7 +76,7 @@ export default function Page({ params }: { params: { slug: string } }) {
   const borderCountryLinks = borderCountries.map((borderCountry) => {
     return (
       <Link
-        href={`/country/${borderCountry.cca3}`}
+        href={`/countries/${borderCountry.cca3}`}
         key={borderCountry.cca3}
         className="w-fit rounded border px-4 py-1 text-sm shadow dark:border-none dark:bg-Dark-Blue-(Dark-Mode-Elements)"
       >

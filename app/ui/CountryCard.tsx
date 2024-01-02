@@ -12,7 +12,7 @@ export default function CountryCard({ country }: Props) {
   return (
     <Link
       className="overflow-hidden rounded  shadow dark:bg-Dark-Blue-(Dark-Mode-Elements) dark:text-white"
-      href={`/country/${country.cca3}`}
+      href={`/countries/${country.cca3}`}
     >
       <div className="relative">
         <Image
