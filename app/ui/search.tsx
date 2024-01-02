@@ -30,7 +30,7 @@ export default function Search({
   return (
     <>
       {/* Search input box */}
-      <div className="flex shrink rounded bg-white px-6 text-Dark-Gray-(Light-Mode-Input) shadow dark:bg-Dark-Blue-(Dark-Mode-Elements) dark:text-white md:basis-[480px]">
+      <div className="flex shrink rounded bg-white px-6 text-Dark-Gray-(Light-Mode-Input) shadow focus-within:[outline-style:auto] dark:bg-Dark-Blue-(Dark-Mode-Elements) dark:text-white md:basis-[480px]">
         {isSearching ? (
           <FontAwesomeIcon className="mr-3 self-center" icon={faSpinner} spin />
         ) : (
@@ -41,7 +41,7 @@ export default function Search({
         )}
 
         <input
-          className="h-[56px] grow bg-inherit md:h-[initial] md:w-[inherit]"
+          className="h-[56px] grow bg-inherit focus:outline-none md:h-[initial] md:w-[inherit]"
           defaultValue={searchParams
             .get(QUERY_PARAMETER_KEY_FOR_SEARCH)
             ?.toString()}
