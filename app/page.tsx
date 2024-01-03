@@ -142,6 +142,18 @@ export default function Home() {
           (country) => country.region === regionFilterValue,
         )
 
+  function getFilterMenuButtonText() {
+    const descriptionText =
+      regionFilterValue === "all" ? "Filter By Region: " : ""
+
+    return (
+      descriptionText +
+      filterOptions.find((option) => option.value === regionFilterValue)?.label
+    )
+  }
+
+  const filterMenuButtonText = getFilterMenuButtonText()
+
   return (
     <div className="px-4 md:px-[80px]">
       <section className="mx-auto max-w-[1280px] py-11 text-sm">
@@ -155,9 +167,23 @@ export default function Home() {
             as="div"
             className="relative max-w-[200px] grow rounded bg-white shadow dark:bg-Dark-Blue-(Dark-Mode-Elements)"
           >
-            <Menu.Button className="flex h-full w-full items-center justify-between gap-x-2 whitespace-nowrap px-6 py-4">
-              Filter By Region
-              <ChevronDownIcon className="h-5 w-5" aria-hidden="true" />
+            <Menu.Button className="relative h-full w-full gap-x-2 whitespace-nowrap py-4 pl-6 pr-11">
+              {({ open }) => (
+                <>
+                  <span
+                    className="block truncate text-left"
+                    title={filterMenuButtonText}
+                  >
+                    {filterMenuButtonText}
+                  </span>
+                  <span className="absolute inset-y-0 right-0 flex items-center pr-6">
+                    <ChevronDownIcon
+                      className={`h-5 w-5 ${open ? "rotate-180" : ""}`}
+                      aria-hidden="true"
+                    />
+                  </span>
+                </>
+              )}
             </Menu.Button>
 
             <Menu.Items className="absolute z-50 mt-2 flex w-full origin-top-right flex-col rounded bg-white py-5 shadow dark:bg-Dark-Blue-(Dark-Mode-Elements)">
